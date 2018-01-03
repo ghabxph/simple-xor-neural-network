@@ -2,9 +2,8 @@
 
 NeuralNetworkXor::NeuralNetworkXor()
 {
-    /// Initial input (just dummy)
-    inputNeuron[0] = 1;
-    inputNeuron[1] = 1;
+    /// Initial output
+    output = 0;
 
     /// Initial input neuron weights to hidden layer neurons
     inputNeuronWeight[0][0] = 0.8;
@@ -21,29 +20,37 @@ NeuralNetworkXor::NeuralNetworkXor()
 }
 
 /// Trains the neural network
-void NeuralNetworkXor::trainNetwork()
+void NeuralNetworkXor::trainNetwork(int input1, int input2, double expectedOutput)
 {
+    double sum = 0;
     for (int i = 0; i < HIDDEN_NEURON_LAYER_1_COUNT; i++) {
-        hiddenNeuron[i] = 0;
-        for (int j = 0; j < INPUT_NEURON_COUNT; j++) {
-            hiddenNeuron[i] += inputNeuron[j] * inputNeuronWeight[j][i];
-        }
-        hiddenNeuron[i] = sigmoid(hiddenNeuron[i]);
-        int count = i + 1;
-        cout << "Hidden Neuron #" << count << ": " << hiddenNeuron[i] << endl;
+        hiddenNeuron[i] = sigmoid(input1 * inputNeuronWeight[0][i] + input2 * inputNeuronWeight[1][i]);
+        cout << "Hidden Neuron #" << i + 1 << ": " << hiddenNeuron[i] << endl;
+        sum += hiddenNeuron[i] * hiddenNeuronWeight[i];
     }
-
-    for (int i = 0; i < HIDDEN_NEURON_LAYER_1_COUNT; i++) {
-        output += hiddenNeuron[i] * hiddenNeuronWeight[i];
-    }
-    output = sigmoid(output);
-
+    output = sigmoid(sum);
     cout << "Output: " << output << endl;
+    double marginOfError = expectedOutput - output;
+    cout << "Margin of error: " << marginOfError << endl;
+    double deltaOutput = sigmoidDerivative(sum) * marginOfError;
+    cout << "Delta Output: " << deltaOutput << endl;
+
+    for (int i = 0; i < HIDDEN_NEURON_LAYER_1_COUNT; i++) {
+        inputNeuronWeight[1][i] = inputNeuronWeight[1][i] + (deltaOutput / hiddenNeuron[i]);
+        cout << "New input neuron weight #" << i + 1 << ": " << inputNeuronWeight[1][i] << endl;
+    }
 }
 
-int NeuralNetworkXor::performXor(int input1, int input2)
+double NeuralNetworkXor::performXor(int input1, int input2)
 {
-    return 0;
+    double sum = 0;
+    for (int i = 0; i < HIDDEN_NEURON_LAYER_1_COUNT; i++) {
+        hiddenNeuron[i] = sigmoid(input1 * inputNeuronWeight[0][i] + input2 * inputNeuronWeight[1][i]);
+        cout << "Hidden Neuron #" << i + 1 << ": " << hiddenNeuron[i] << endl;
+        sum += hiddenNeuron[i] * hiddenNeuronWeight[i];
+    }
+    output = sigmoid(sum);
+    return output;
 }
 
 
@@ -51,4 +58,12 @@ int NeuralNetworkXor::performXor(int input1, int input2)
 double NeuralNetworkXor::sigmoid(double value)
 {
     return 1 / (1 + (exp(-value)));
+}
+
+/// Utility method that performs the derivative of sigmoid function
+/// Implemented using the following formula: f'(x) = f(x) * (1 - f(x))
+/// https://math.stackexchange.com/questions/78575/derivative-of-sigmoid-function-sigma-x-frac11e-x
+double NeuralNetworkXor::sigmoidDerivative(double value)
+{
+    return sigmoid(value) * (1 - sigmoid(value));
 }

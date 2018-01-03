@@ -20,3 +20,24 @@
 1514968416 source:d:\dev\non-www\neural-network-xor\utils.cpp
 	"utils.h"
 
+1514993370 source:d:\dev\non-www\cpp\simple-xor-neural-network\main.cpp
+	"declarations.h"
+
+1514980341 d:\dev\non-www\cpp\simple-xor-neural-network\declarations.h
+	<iostream>
+	"utils.h"
+	"nn-xor-class.h"
+
+1514980341 d:\dev\non-www\cpp\simple-xor-neural-network\utils.h
+	<iostream>
+	<math.h>
+
+1514993606 d:\dev\non-www\cpp\simple-xor-neural-network\nn-xor-class.h
+	"utils.h"
+
+1514993206 source:d:\dev\non-www\cpp\simple-xor-neural-network\nn-xor-class.cpp
+	"nn-xor-class.h"
+
+1514980341 source:d:\dev\non-www\cpp\simple-xor-neural-network\utils.cpp
+	"utils.h"
+

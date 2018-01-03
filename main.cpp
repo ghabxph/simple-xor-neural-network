@@ -30,7 +30,9 @@ int main()
 
     NeuralNetworkXor neuralNetworkXor;
 
-    neuralNetworkXor.trainNetwork();
+    neuralNetworkXor.trainNetwork(1,1,0);
+
+    cout << "Input of 1 and 1 is: " << neuralNetworkXor.performXor(1,1) << endl;
 
     return 1;
 }
