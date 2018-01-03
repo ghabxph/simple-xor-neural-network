@@ -31,6 +31,12 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="declarations.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="nn-xor-class.cpp" />
+		<Unit filename="nn-xor-class.h" />
+		<Unit filename="utils.cpp" />
+		<Unit filename="utils.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
