@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -8,6 +9,7 @@ using namespace std;
 int getValidBinaryInput(const char *sMessage);
 int getIntInput(const char *sMessage);
 int doNeuralXor(int input1, int input2);
+double sigmoid(double value);
 /// --------------------------------
 
 
@@ -22,6 +24,8 @@ int main()
     /// Gets 2 inputs (0 or 1 only)
     input[0] = getValidBinaryInput("Please enter input 1: ");
     input[1] = getValidBinaryInput("Please enter input 2: ");
+
+    cout << endl;
 
     /// Displays the summary of our input
     cout << "Input 1: " << input[0] << endl;
@@ -59,7 +63,7 @@ int getIntInput (const char *sMessage)
     bool bInputGood = false;
     int inputVar;
     do {
-        cout << endl << sMessage;
+        cout << sMessage;
         cin >> inputVar;
         bInputGood = cin.good();
         if (bInputGood == false) {
@@ -74,5 +78,39 @@ int getIntInput (const char *sMessage)
 /// Performs XOR operation using neural network
 int doNeuralXor(int input1, int input2)
 {
+    double inputWeight1[3];
+    double inputWeight2[3];
+    double hiddenWeight[3];
+    double hiddenNeuron[3];
+    double output = 0;
+    inputWeight1[0] = 0.8;
+    inputWeight1[1] = 0.4;
+    inputWeight1[2] = 0.3;
+    inputWeight2[0] = 0.2;
+    inputWeight2[1] = 0.9;
+    inputWeight2[2] = 0.5;
+    hiddenWeight[0] = 0.3;
+    hiddenWeight[1] = 0.5;
+    hiddenWeight[2] = 0.9;
+
+    for (int i = 0; i < 3; i++) {
+        hiddenNeuron[i] = sigmoid((input1 * inputWeight1[i]) + (input2 * inputWeight2[i]));
+        int count = i + 1;
+        cout << "Hidden Neuron #" << count << ": " << hiddenNeuron[i] << endl;
+    }
+
+    for (int i = 0; i < 3; i++) {
+        output += hiddenNeuron[i] * hiddenWeight[i];
+    }
+    output = sigmoid(output);
+
+    cout << "Output: " << output << endl;
     return 0;
+}
+
+
+/// Perform sigmoid function
+double sigmoid(double value)
+{
+    return 1 / (1 + (exp(-value)));
 }
