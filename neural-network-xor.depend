@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1514970274 source:d:\dev\non-www\neural-network-xor\nn-xor-class.cpp
+	"nn-xor-class.h"
+
+1514969068 d:\dev\non-www\neural-network-xor\nn-xor-class.h
+	"utils.h"
+
+1514969784 source:d:\dev\non-www\neural-network-xor\main.cpp
+	"declarations.h"
+
+1514967969 d:\dev\non-www\neural-network-xor\declarations.h
+	<iostream>
+	"utils.h"
+	"nn-xor-class.h"
+
+1514968368 d:\dev\non-www\neural-network-xor\utils.h
+	<iostream>
+	<math.h>
+
+1514968416 source:d:\dev\non-www\neural-network-xor\utils.cpp
+	"utils.h"
+
