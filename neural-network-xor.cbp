@@ -35,8 +35,9 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="neuron.cpp" />
 		<Unit filename="neuron.h" />
-		<Unit filename="nn-xor-class.cpp" />
 		<Unit filename="nn-xor-class.h" />
+		<Unit filename="synapse.cpp" />
+		<Unit filename="synapse.h" />
 		<Unit filename="utils.cpp" />
 		<Unit filename="utils.h" />
 		<Extensions>

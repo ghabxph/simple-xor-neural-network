@@ -1,48 +1,35 @@
 #include "neuron.h"
 
-/// --------------------------
-/// Public Methods
-/// ``````````````````````````
-
-/// Retrieves the neuron's value
-double Neuron::getValue()
+/// Connects a neuron to another neuron
+void Neuron::connect(Neuron *neuron, double weight)
 {
-    return value
+    synapses.push_back(new Synapse(this, neuron, weight));
 }
 
-/// Sets the neuron's value
-void Neuron::setValue(double value)
+/// Inform this instance of neuron that some synapse is connecting to it
+void Neuron::addConnectedSynapse(Synapse* synapse)
 {
-    this->value = value;
+    connectedSynapses.push_back(synapse);
 }
 
-/// Clears the neuron
-void Neuron::clearNeuron()
+/// Propagates the value up to the last neuron
+void Neuron::propagate()
 {
-    value = 0;
+    for (unsigned int i = 0; i < synapses.size(); i++) {
+        synapses[i]->stimulate();
+    }
 }
 
-/// Adds an input to the neuron
-void Neuron::addInput(Neuron neuron, double weight)
+/// Performs a back propagation
+void Neuron::backPropagate(double targetValue)
 {
-    value += neuron.getValue() * weight;
+    double marginOfError = targetValue - value;
+    deltaValue = sigmoidDerivative(valueBeforeActivation) * marginOfError;
+    cout << "Sum: " << valueBeforeActivation << endl;
+    cout << "Margin of error: " << marginOfError << endl;
+    cout << "Delta Output: " << deltaValue << endl;
+    for (int i = 0; i < connectedSynapses.size(); i++) {
+        connectedSynapses[i]->updateWeight(deltaValue);
+        double sourceDeltaValue = connectedSynapses[i]->getDestination()->getDeltaValue();
+    }
 }
-
-/// Activates the neuron (using sigmoid function)
-void Neuron::activate()
-{
-    value = sigmoid(value);
-}
-/// --------------------------
-
-
-/// --------------------------
-/// Private methods
-/// ``````````````````````````
-
-/// Sigmoid function
-double Neuron::sigmoid(double value)
-{
-    return 1 / (1 + (exp(-value)));
-}
-/// --------------------------
