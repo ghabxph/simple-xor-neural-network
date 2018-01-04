@@ -69,14 +69,14 @@ public:
 
     /// Trains the neural network
     void trainNetwork(double input1, double input2, double expectedOutput) {
-        input[0]->setValue(input1)->propagate();
-        cout << output->getValue() << endl;
-        input[1]->setValue(input2)->propagate();
-        cout << output->getValue() << endl;
-
-        output->backPropagate(expectedOutput);
+        performXor(input1, input2);
+        output->backPropagateByTargetValue(expectedOutput);
     }
 
     /// Perform neural network using XOR
-    double performXor(int input1, int input2);
+    double performXor(int input1, int input2) {
+        input[0]->setValue(input1)->propagate();
+        input[1]->setValue(input2)->propagate();
+        return output->getValue();
+    }
 };

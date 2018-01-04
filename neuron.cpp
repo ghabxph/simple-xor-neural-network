@@ -21,15 +21,14 @@ void Neuron::propagate()
 }
 
 /// Performs a back propagation
-void Neuron::backPropagate(double targetValue)
+void Neuron::backPropagate()
 {
-    double marginOfError = targetValue - value;
-    deltaValue = sigmoidDerivative(valueBeforeActivation) * marginOfError;
-    cout << "Sum: " << valueBeforeActivation << endl;
-    cout << "Margin of error: " << marginOfError << endl;
-    cout << "Delta Output: " << deltaValue << endl;
-    for (int i = 0; i < connectedSynapses.size(); i++) {
+    Neuron *sourceNeuron;
+    double oldWeight = 0;
+    for (unsigned int i = 0; i < connectedSynapses.size(); i++) {
         connectedSynapses[i]->updateWeight(deltaValue);
-        double sourceDeltaValue = connectedSynapses[i]->getDestination()->getDeltaValue();
+        oldWeight = connectedSynapses[i]->getOldWeight();
+        sourceNeuron = connectedSynapses[i]->getSource();
+        sourceNeuron->backPropagateByMargin(deltaValue / oldWeight);
     }
 }

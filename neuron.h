@@ -58,7 +58,7 @@ public:
     void propagate();
 
     /// Performs a back propagation
-    void backPropagate(double targetValue);
+    void backPropagate();
 
     /// Constructor
     Neuron()
@@ -88,13 +88,14 @@ public:
     Neuron *setValue(double value)
     {
         this->value = value;
+        this->valueBeforeActivation = value;
         return this;
     }
 
     /// Returns the value of the neuron
     double getValue()
     {
-        return this->value;
+        return value;
     }
 
     /// Activates the neuron
@@ -108,7 +109,8 @@ public:
     /// Stimulates the neuron
     void stimulate(Neuron *source, Neuron *destination, double weight)
     {
-        value += source->getValue() * weight;
+        double tempValue = source->getValue() * weight;
+        value = (senderCount == 0) ? tempValue : value + tempValue;
         valueBeforeActivation = value;
         senderCount++;
         if (senderCount >= parentCount) {
@@ -120,5 +122,19 @@ public:
     /// Gets the delta value
     double getDeltaValue() {
         return deltaValue;
+    }
+
+    /// Perform back propagation by target value
+    void backPropagateByTargetValue(double targetValue)
+    {
+        double marginOfError = targetValue - value;
+        backPropagateByMargin(marginOfError);
+    }
+
+    /// Performs a back propagation by margin value
+    void backPropagateByMargin(double marginValue)
+    {
+        deltaValue = sigmoidDerivative(valueBeforeActivation) * marginValue;
+        backPropagate();
     }
 };
