@@ -2,11 +2,11 @@
 1514970274 source:d:\dev\non-www\neural-network-xor\nn-xor-class.cpp
 	"nn-xor-class.h"
 
-1515048110 d:\dev\non-www\neural-network-xor\nn-xor-class.h
+1515105973 d:\dev\non-www\neural-network-xor\nn-xor-class.h
 	"utils.h"
 	"neuron.h"
 
-1515050562 source:d:\dev\non-www\neural-network-xor\main.cpp
+1515106584 source:d:\dev\non-www\neural-network-xor\main.cpp
 	"declarations.h"
 
 1514967969 d:\dev\non-www\neural-network-xor\declarations.h
@@ -43,19 +43,19 @@
 1514980341 source:d:\dev\non-www\cpp\simple-xor-neural-network\utils.cpp
 	"utils.h"
 
-1515047443 d:\dev\non-www\neural-network-xor\neuron.h
+1515105973 d:\dev\non-www\neural-network-xor\neuron.h
 	<math.h>
 	<vector>
 	"synapse.h"
 	<iostream>
 
-1515052552 source:d:\dev\non-www\neural-network-xor\neuron.cpp
+1515105973 source:d:\dev\non-www\neural-network-xor\neuron.cpp
 	"neuron.h"
 
-1515050317 d:\dev\non-www\neural-network-xor\synapse.h
+1515052791 d:\dev\non-www\neural-network-xor\synapse.h
 	"neuron.h"
 
-1515050329 source:d:\dev\non-www\neural-network-xor\synapse.cpp
+1515106557 source:d:\dev\non-www\neural-network-xor\synapse.cpp
 	"synapse.h"
 
 1515081478 d:\dev\non-www\cpp\simple-xor-neural-network\neuron.h
